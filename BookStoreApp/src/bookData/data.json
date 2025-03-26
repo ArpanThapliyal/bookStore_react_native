@@ -1,0 +1,75 @@
+[
+    {
+      "id": "1",
+      "name": "Don't Make Me Think",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "dontMakeMeThink.png"
+    },
+    {
+      "id": "2",
+      "name": "React Material-UI",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "react.png"
+    },
+    {
+      "id": "3",
+      "name": "Share Framework",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "sharePoint.jpg"
+    },
+    {
+      "id": "4",
+      "name": "UX DUMMIES",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "uxDummies.png"
+    },
+    {
+      "id": "5",
+      "name": "UX DESIGN",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "uxDesign.jpg"
+    },
+    {
+      "id": "6",
+      "name": "Group Discussion",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "groupDescussion.jpg"
+    },
+    {
+      "id": "7",
+      "name": "LEAN UX",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "leanUx.jpg"
+    },
+    {
+      "id": "8",
+      "name": "Design Everything",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "designEveryday.png"
+    },
+    {
+      "id": "9",
+      "name": "The Alchemist",
+      "author": "by Steve King",
+      "currentPrice": 1500,
+      "previousPrice": 2000,
+      "img": "TheAlchemist.jpg"
+    }
+  ]
+  
