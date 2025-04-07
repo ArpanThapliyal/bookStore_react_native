@@ -34,7 +34,7 @@ local.properties
 *.keystore
 !debug.keystore
 .kotlin/
-Android/app/google-services.json
+android/app/google-services.json
 
 
 
