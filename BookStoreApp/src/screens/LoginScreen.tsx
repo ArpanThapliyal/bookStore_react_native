@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import {WEB_CLIENT_ID} from '../utils/constants';
+import { WEB_CLIENT_ID } from '../utils/constants';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -12,17 +11,9 @@ const LoginScreen = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState();
 
   const storedEmail = route.params?.userEmail || '';
   const storedPassword = route.params?.userPassword || '';
-
-  // cheking user state
-  const onAuthStateSave = (user:any) => setUser(user);
-  useEffect(()=>{
-    const subscriber = auth().onAuthStateChanged(onAuthStateSave);
-    return subscriber;
-  })
 
   const handleLogin = () => {
     if (email === storedEmail && password === storedPassword) {
@@ -33,52 +24,17 @@ const LoginScreen = () => {
     }
   };
 
-  // sign in with google
-  // useEffect(() => {
-  //   GoogleSignin.configure({
-  //     webClientId: WEB_CLIENT_ID,
-  //   });
-  // }, []);
-  
-  // const handleGoogleSignup = async () => {
-  //   try {
-  //     // Check if your device supports Google Play services
-  //     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      
-  //     // Get the user's sign-in result and log it
-  //     const signInResult = await GoogleSignin.signIn();
-  //     console.log('Google SignIn result:', signInResult);
-      
-  //     // Cast to any to bypass TypeScript issues and extract token
-  //     const result: any = signInResult;
-  //     const token = result.idToken || result.accessToken;
-  //     if (!token) {
-  //       console.error('No token found in signInResult:', result);
-  //       throw new Error('No token returned from Google Sign In');
-  //     }
-      
-  //     // Create a Google credential with the token and sign in with Firebase
-  //     const googleCredential = auth.GoogleAuthProvider.credential(token);
-  //     await auth().signInWithCredential(googleCredential);
-      
-  //     Alert.alert('Google Signup Successful!');
-  //     navigation.navigate('Home');
-  //   } catch (error) {
-  //     console.error('Google sign in error:', error);
-  //     Alert.alert('Google sign in error', error.message);
-  //   }
-  // };
   const handleGoogleSignin = async () => {
     try {
       GoogleSignin.configure({
-        offlineAccess:false,
+        offlineAccess: false,
         webClientId: WEB_CLIENT_ID,
-      })
+      });
       await GoogleSignin.hasPlayServices();
       await GoogleSignin.signOut();
       const user = await GoogleSignin.signIn();
       console.log(user);
-      if(!user){
+      if (!user) {
         Alert.alert('Error', 'Google Sign-In failed');
         return;
       }
@@ -87,8 +43,9 @@ const LoginScreen = () => {
     } catch (error) {
       console.log('Google Sign-In Error:', error);
       Alert.alert('Error', error.message || 'Google Sign-In failed');
-      }
-    };
+    }
+  };
+
   const handleFacebookSignup = () => {
     Alert.alert('Facebook Signup Clicked');
   }; 
@@ -118,6 +75,7 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
+      
       <Text style={styles.orText}>OR</Text>
       
       <View style={styles.socialContainer}>
@@ -131,6 +89,11 @@ const LoginScreen = () => {
           <Text style={styles.socialText}>Sign up with Facebook</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Navigation link to Signup screen */}
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+        <Text style={styles.linkText}>Don't have an account? <Text style={styles.linkText2}>Sign Up</Text> </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -203,5 +166,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#555',
+  },
+  linkText: {
+    marginTop: 20,
+    color: '#A03037',
+    textDecorationLine: 'underline',
+  },
+  linkText2: {
+    marginTop: 20,
+    fontWeight:'bold',
+    color: 'red',
+    fontSize:16
   },
 });

@@ -14,17 +14,16 @@ const SignupScreen = () => {
       .then(() => {
         Alert.alert('User account created');
         navigation.navigate('Login', { userEmail: email, userPassword: password });
-  })
-  .catch(error => {
-    if (error.code === 'auth/email-already-in-use') {
-      Alert.alert('That email address is already in use!');
-    }
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('That email address is already in use!');
+        }
 
-    if (error.code === 'auth/invalid-email') {
-      Alert.alert('That email address is invalid!');
-    }
-  });
-    
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('That email address is invalid!');
+        }
+      });
   };
 
   return (
@@ -52,7 +51,11 @@ const SignupScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      
+
+      {/* Navigation link to Login screen */}
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.linkText}>Already have an account? <Text style={styles.linkText2}>Login</Text></Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -98,6 +101,15 @@ const styles = StyleSheet.create({
     fontSize: 18, 
     fontWeight: 'bold',
   },
- 
-  
+  linkText: {
+    marginTop: 26,
+    color: '#A03037',
+    textDecorationLine: 'underline',
+  },
+  linkText2: {
+    marginTop: 20,
+    fontWeight:'bold',
+    color: 'red',
+    fontSize:16
+  },
 });
