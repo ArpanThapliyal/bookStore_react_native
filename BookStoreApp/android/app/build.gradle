@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services'
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
@@ -88,10 +89,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('./new.keystore')
+            storePassword 'Arpan@123'
+            keyAlias 'alias_name'
+            keyPassword 'Arpan@123'
         }
     }
     buildTypes {
@@ -107,13 +108,15 @@ android {
         }
     }
         project.ext.vectoricons = [
-        iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Specify font files
+        iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf','Ionicons.ttf' ] // Specify font files
     ]
 }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation platform('com.google.firebase:firebase-bom:33.12.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

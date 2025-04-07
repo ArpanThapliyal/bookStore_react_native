@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -8,16 +9,22 @@ const SignupScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleSignup = () => {
-    if (!email.includes('@')) {
-      alert('Enter a valid email');
-      return;
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.alert('User account created');
+        navigation.navigate('Login', { userEmail: email, userPassword: password });
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      Alert.alert('That email address is already in use!');
     }
-    if (password.length < 6) {
-      alert('Password must be at least 6 characters');
-      return;
+
+    if (error.code === 'auth/invalid-email') {
+      Alert.alert('That email address is invalid!');
     }
-    // For demo: navigate to Login screen, passing credentials
-    navigation.navigate('Login', { userEmail: email, userPassword: password });
+  });
+    
   };
 
   return (
@@ -45,6 +52,7 @@ const SignupScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      
     </View>
   );
 };
@@ -90,4 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 18, 
     fontWeight: 'bold',
   },
+ 
+  
 });
